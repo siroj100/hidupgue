@@ -1,9 +1,8 @@
 <?php if ($section === 'new') { ?>
 $(function() {
-  $('#formNewActivity').submit(function() {
-  //$('#newActivity_submit').click(function() {
+  var formNewActivitySubmit = function() {
+  //$('#formNewActivity').submit(function() {
     $('#listActivity div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
-    //$.post('../activity/create', $(this).find('input').serialize(), function(data)
     $.post('../activity/create', $('.newActivity_').serialize(), function(data)
     {
       if ($('#listActivity').length > 0) {
@@ -11,6 +10,21 @@ $(function() {
       }
     }, 'json');
     return false;
+  //});
+  };
+
+  $('#newActivity_type').change(function() {
+    var activityType = $(this).attr('selectedIndex'); 
+    if (activityType > 0) {
+      $('#newActivity div').show();
+      $('#newActivity div').load('../view/activity/new/'+activityType, function() {
+        $('#formNewActivity').submit(formNewActivitySubmit);
+      });
+      /*$.get('../view/activity/new/'+activityType, function() {
+      });*/
+    } else {
+      $('#newActivity div').hide();
+    }
   });
 });
 <?php } else if ($section === 'list') { ?>
@@ -36,10 +50,10 @@ $(function() {
   });
   };
   listActivity_reload();
-  if ($('#formNewActivity').length > 0) {
+  //if ($('#formNewActivity').length > 0) {
     $.listActivity_reload = function() {
       listActivity_reload();
     }
-  }
+  //}
 });
 <?php } ?>

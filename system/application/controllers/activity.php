@@ -10,7 +10,7 @@ class Activity extends Controller {
   {
     $data['name'] = $_POST['name'];
     $data['description'] = $_POST['description'];
-    $data['start_executed_date'] = $_POST['startExecutedDate'];
+    $data['start_executed_date'] = $_POST['startExecutedDate'].' '.$_POST['startExecutedDateHour'].':'.$_POST['startExecutedDateMinute'];
     $this->Model_aktivitas->insert($data);
     echo "{result: 'ok'}";
   }
@@ -21,5 +21,13 @@ class Activity extends Controller {
     $data['objects'] = $q_result->result_array();
     $this->load->view('jsonizer', $data);
   }
+
+  function list_activity_type()
+  {
+    $q_result = $this->Model_enum_params->list_activity_type(); 
+    $data['objects'] = $q_result->result_array();
+    $this->load->view('jsonizer', $data);
+  }
+
 }
 ?>

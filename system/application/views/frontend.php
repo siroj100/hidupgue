@@ -17,6 +17,8 @@ body {
 
 <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
 
+<?php echo $new_contact; ?>
+<?php echo $list_contact; ?>
 <?php echo $new_activity; ?>
 <?php echo $list_activity; ?>
 <?php echo $new_note; ?>

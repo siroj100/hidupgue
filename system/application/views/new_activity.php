@@ -1,29 +1,23 @@
 <div id="newActivity">
-<script src="../js/activity/new" type="text/javascript"></script>
+<form id="formNewActivityMain">
+
+<label>Jenis Aktivitas</label>
+<select id="newActivity_type" name="activityType" class="formInput newActivity_"></select>
+</form>
+<div>
+</div>
 <script type="text/javascript">
 $(function() {
-  var myFormatDate = function(theDate) {
-    return d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate();
-  }
-  d = new Date();
-  var html = '<option value="'+myFormatDate(d)+'">Hari ini ('+myFormatDate(d)+')</option>';
-  d.setDate(d.getDate()-1);
-  html += '<option value="'+myFormatDate(d)+'">Kemarin ('+myFormatDate(d)+')</option>'; 
-  $('#newActivity_startExecutedDate').append(html);
+  $.getJSON('../activity/list_activity_type', function(data) {
+    var html = '<option></option>\n';
+    if (data.length > 0) {
+      $.each(data, function(key, entry) {
+        html += '<option value="'+entry['enum_value']+'">'+entry['enum_value_desc']+'</option>\n';
+      });
+    }
+    $('#newActivity_type').append(html);
+  });
 });
 </script>
-<form id="formNewActivity">
-
-<label>Nama</label>
-<input type="input" id="newActivity_name" name="name" class="formInput newActivity_"/>
-
-<label>Deskripsi</label>
-<input type="input" id="newActivity_description" name="description" class="formInput newActivity_"/>
-
-<label>Tanggal</label>
-<select id="newActivity_startExecutedDate" name="startExecutedDate" class="formInput newActivity_">
-</select>
-
-<input id="newActivity_submit" type="submit" value="Buat"/>
-</form>
+<script src="../js/activity/new" type="text/javascript"></script>
 </div>

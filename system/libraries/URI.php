@@ -61,6 +61,7 @@ class CI_URI {
 	{
 		if (strtoupper($this->config->item('uri_protocol')) == 'AUTO')
 		{
+			/* silly code, stupid micro-opt
 			// If the URL has a question mark then it's simplest to just
 			// build the URI string from the zero index of the $_GET array.
 			// This avoids having to deal with $_SERVER variables, which
@@ -70,6 +71,7 @@ class CI_URI {
 				$this->uri_string = key($_GET);
 				return;
 			}
+			*/
 		
 			// Is there a PATH_INFO variable?
 			// Note: some servers seem to have trouble with getenv() so we'll test it two ways		

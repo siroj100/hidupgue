@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Model_aktivitas','Model_catatan');
+$autoload['model'] = array('Model_aktivitas','Model_catatan','Model_enum_params','Model_kontak','Model_kontak_alamat','Model_kontak_email','Model_kontak_telepon');
 
 
 

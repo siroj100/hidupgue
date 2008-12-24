@@ -16,11 +16,12 @@ $(function() {
 $(function() {
   var listNote_reload = function() {
   $.getJSON('../note/list_data', function(data) {
-    var html = '<table>\n<tr><th>Title</th></tr>\n';
+    var html = '<table>\n<tr><th>Title</th><th>Teks</th></tr>\n';
     if (data.length > 0) {
       $.each(data, function(key, entry) {
         html += '<tr>';
         html += '<td>'+entry['title']+'</td>';
+        html += '<td>'+entry['teks']+'</td>';
         html += '</tr>\n';
       });
     }

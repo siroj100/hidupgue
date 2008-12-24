@@ -23,6 +23,12 @@ class Js extends Controller {
     $this->load->view('note.js',$data);
   }
 
+  function contact($section)
+  {
+    $data['section'] = $section;
+    $this->load->view('contact.js',$data);
+  }
+
 }
 ?>
 

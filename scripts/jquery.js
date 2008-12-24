@@ -2645,6 +2645,7 @@ jQuery.extend({
 			// IE likes to send both get and post data, prevent this
 			s.data = null;
 		}
+		//alert('loading url...: '+s.url+', dataType: '+s.dataType);
 
 		// Watch for a new set of requests
 		if ( s.global && ! jQuery.active++ )
