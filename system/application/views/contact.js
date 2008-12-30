@@ -30,9 +30,29 @@ $(function() {
     $('a.contactDetails').click(function() {
       var contactId = $(this).attr('id').substring(12);
       var elemId = '#contact_'+contactId+'_details';
-      $.get('../view/contact/details/'+contactId,{}, function(data) {
-        $(elemId).html(data);
-      },'html');
+      var html = '<table>';
+      html += '<tr><th>Phone</th>'
+      html += '<td><a href="#" id="contactPhoneAdd_'+contactId+'" class="contactPhoneAdd">add phone</a></td></tr>';
+      $.getJSONsync('../contact/list_phone_details/'+contactId, function(data) {
+        if (data.length > 0) {
+          $.each(data, function(key, entry) {
+            //alert(entry['phone_number']);
+            html += '<tr><td>&nbsp;</td>';
+            html += '<td>'+entry['phone_number']+'</td></tr>';
+          });
+        }
+      });
+      html += '</table>';
+
+      html += '<table>';
+      html += '<tr><th>E-Mail</th>'
+      html += '<td><a href="#" id="contactEmailAdd_'+contactId+'" class="contactEmailAdd">add e-mail</a></td></tr>';
+      $.getJSONsync('../contact/list_email_details', function(data) {
+        if (data.length > 0) {
+        }
+      });
+      html += '</table>';
+      $(elemId).html(html);
       return false;
     });
   });

@@ -10,8 +10,12 @@ class Model_kontak_email extends Model {
     $this->db->insert('kontak_email', $data);
   }
 
-  function list_all()
+  function list_all($kontak_id=null)
   {
+    if (isset($kontak_id)) {
+      $this->db->where('kontak_id', $kontak_id);
+    }
+    $this->db->orderby('created_on', 'desc');
     return $this->db->get('kontak_email');
   }
 }

@@ -2524,7 +2524,7 @@ jQuery.extend({
 			url: url,
 			data: data,
 			success: callback,
-			dataType: type
+			dataType: type,
 		});
 	},
 
@@ -2534,6 +2534,22 @@ jQuery.extend({
 
 	getJSON: function( url, data, callback ) {
 		return jQuery.get(url, data, callback, "json");
+	},
+
+	getJSONsync: function( url, data, callback ) {
+		if ( jQuery.isFunction( data ) ) {
+			callback = data;
+			data = {};
+		}
+
+		return jQuery.ajax({
+			type: "GET",
+			url: url,
+			data: data,
+			success: callback,
+			async: false,
+			dataType: "json"
+		});
 	},
 
 	post: function( url, data, callback, type ) {
