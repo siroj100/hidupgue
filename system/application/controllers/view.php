@@ -22,6 +22,7 @@ class View extends Controller {
       $data['list_note'] = $this->load->view('list_note','',true);
       $data['new_contact'] = $this->load->view('new_contact','',true);
       $data['list_contact'] = $this->load->view('list_contact','',true);
+      $data['new_contact_email'] = $this->load->view('new_contact_email','',true);
       $this->load->view('frontend',$data);
     } else {
       $this->login();

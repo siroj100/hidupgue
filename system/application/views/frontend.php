@@ -11,7 +11,9 @@ body {
  color: #4F5155;
 }
 </style>
-<script src="../scripts/jquery.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.boxy.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../stylesheets/boxy.css" type="text/css" />
 </head>
 <body>
 
@@ -25,6 +27,10 @@ body {
 <?php echo $list_note; ?>
 
 <p><br />Page rendered in {elapsed_time} seconds</p>
+
+<div id="hiddenForms" style="display: none;">
+<?php echo $new_contact_email; ?>
+</div>
 
 </body>
 </html>

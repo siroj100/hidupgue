@@ -4,6 +4,7 @@ $(function() {
     $('#listContact div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
     $.post('../contact/create', $('.newContact_').serialize(), function(data)
     {
+      $('#formNewContact :reset').click();
       if ($('#listContact').length > 0) {
         $.listContact_reload();
       }
@@ -13,6 +14,17 @@ $(function() {
 });
 <?php } else if ($section === 'list') { ?>
 $(function() {
+  $('#formNewContactEmail').submit(function() {
+    $.post('../contact/create_email', $('.newContactEmail_').serialize(), function(data)
+    {
+      $('#formNewContactEmail :reset').click();
+      window.boxy.hide();
+      if ($('#listContact').length > 0) {
+        $.listContact_reload();
+      }
+    }, 'json');
+    return false;
+  });
   var listContact_reload = function() {
   $.getJSON('../contact/list_data', function(data) {
     var html = '<ul id="listContactName">\n';
@@ -36,7 +48,6 @@ $(function() {
       $.getJSONsync('../contact/list_phone_details/'+contactId, function(data) {
         if (data.length > 0) {
           $.each(data, function(key, entry) {
-            //alert(entry['phone_number']);
             html += '<tr><td>&nbsp;</td>';
             html += '<td>'+entry['phone_number']+'</td></tr>';
           });
@@ -47,12 +58,22 @@ $(function() {
       html += '<table>';
       html += '<tr><th>E-Mail</th>'
       html += '<td><a href="#" id="contactEmailAdd_'+contactId+'" class="contactEmailAdd">add e-mail</a></td></tr>';
-      $.getJSONsync('../contact/list_email_details', function(data) {
+      $.getJSONsync('../contact/list_email_details/'+contactId, function(data) {
         if (data.length > 0) {
+          $.each(data, function(key, entry) {
+            html += '<tr><td>&nbsp;</td>';
+            html += '<td>'+entry['email_address']+'</td></tr>';
+          });
         }
       });
       html += '</table>';
       $(elemId).html(html);
+
+      $('.contactEmailAdd').click(function() {
+        var contactId = $(this).attr('id').substring(16);
+        $('#newContactEmail_contactId').attr('value', contactId);
+        window.boxy = new Boxy($('#newContactEmail'), {title: "New Email", modal: true});
+      });
       return false;
     });
   });
@@ -64,8 +85,4 @@ $(function() {
     }
   }
 });
-<?php } else if ($section === 'details') { ?>
-$(function() {
-alert('ok choy');
-});
-<?php } ?>
+<?php }?>

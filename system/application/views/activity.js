@@ -5,6 +5,7 @@ $(function() {
     $('#listActivity div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
     $.post('../activity/create', $('.newActivity_').serialize(), function(data)
     {
+      $('#formNewActivity :reset').click();
       if ($('#listActivity').length > 0) {
         $.listActivity_reload();
       }
@@ -20,8 +21,6 @@ $(function() {
       $('#newActivity div').load('../view/activity/new/'+activityType, function() {
         $('#formNewActivity').submit(formNewActivitySubmit);
       });
-      /*$.get('../view/activity/new/'+activityType, function() {
-      });*/
     } else {
       $('#newActivity div').hide();
     }
@@ -50,10 +49,10 @@ $(function() {
   });
   };
   listActivity_reload();
-  //if ($('#formNewActivity').length > 0) {
+  if ($('#formNewActivity').length > 0) {
     $.listActivity_reload = function() {
       listActivity_reload();
     }
-  //}
+  }
 });
 <?php } ?>

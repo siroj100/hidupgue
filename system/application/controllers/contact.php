@@ -14,6 +14,14 @@ class Contact extends Controller {
     echo "{result: 'ok'}";
   }
 
+  function create_email()
+  {
+    $data['kontak_id'] = $_POST['contactId'];
+    $data['email_address'] = $_POST['emailAddress'];
+    $this->Model_kontak_email->insert($data);
+    echo "{result: 'ok'}";
+  }
+
   function list_data()
   {
     $q_result = $this->Model_kontak->list_all(); 
@@ -30,7 +38,7 @@ class Contact extends Controller {
     }
   }
 
-  function list_email_details()
+  function list_email_details($kontak_id=null)
   {
     if (isset($kontak_id)) {
       $q_result = $this->Model_kontak_email->list_all($kontak_id); 

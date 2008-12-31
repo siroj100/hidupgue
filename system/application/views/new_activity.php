@@ -6,6 +6,7 @@
 </form>
 <div>
 </div>
+</div>
 <script type="text/javascript">
 $(function() {
   $.getJSON('../activity/list_activity_type', function(data) {
@@ -20,4 +21,3 @@ $(function() {
 });
 </script>
 <script src="../js/activity/new" type="text/javascript"></script>
-</div>

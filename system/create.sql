@@ -42,47 +42,8 @@ create table catatan (
 );
 
 drop table if exists kontak_email;
-
-create table kontak_email (
-  id int not null auto_increment,
-  email_address varchar(500),
-  add_info varchar(100),
-  contact_info_type int,
-  kontak_id int,
-  created_on timestamp,
-  updated_on timestamp,
-  constraint fk_kontak_email_0 foreign key (kontak_id) references kontak (id),
-  primary key (id)
-);
-
 drop table if exists kontak_telepon;
-
-create table kontak_telepon (
-  id int not null auto_increment,
-  phone_number varchar(20),
-  add_info varchar(100),
-  contact_info_type int,
-  kontak_id int,
-  created_on timestamp,
-  updated_on timestamp,
-  constraint fk_kontak_telepon_0 foreign key (kontak_id) references kontak (id),
-  primary key (id)
-);
-
 drop table if exists kontak_alamat;
-
-create table kontak_alamat (
-  id int not null auto_increment,
-  address varchar(500),
-  add_info varchar(100),
-  contact_info_type int,
-  kontak_id int,
-  created_on timestamp,
-  updated_on timestamp,
-  constraint fk_kontak_alamat_0 foreign key (kontak_id) references kontak (id),
-  primary key (id)
-);
-
 drop table if exists kontak;
 
 create table kontak (
@@ -96,4 +57,39 @@ create table kontak (
   primary key (id)
 );
 
+create table kontak_email (
+  id int not null auto_increment,
+  email_address varchar(500),
+  add_info varchar(100),
+  contact_info_type int,
+  kontak_id int,
+  created_on timestamp,
+  updated_on timestamp,
+  constraint fk_kontak_email_0 foreign key (kontak_id) references kontak (id),
+  primary key (id)
+);
+
+create table kontak_telepon (
+  id int not null auto_increment,
+  phone_number varchar(20),
+  add_info varchar(100),
+  contact_info_type int,
+  kontak_id int,
+  created_on timestamp,
+  updated_on timestamp,
+  constraint fk_kontak_telepon_0 foreign key (kontak_id) references kontak (id),
+  primary key (id)
+);
+
+create table kontak_alamat (
+  id int not null auto_increment,
+  address varchar(500),
+  add_info varchar(100),
+  contact_info_type int,
+  kontak_id int,
+  created_on timestamp,
+  updated_on timestamp,
+  constraint fk_kontak_alamat_0 foreign key (kontak_id) references kontak (id),
+  primary key (id)
+);
 

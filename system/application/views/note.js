@@ -1,10 +1,10 @@
 <?php if ($section === 'new') { ?>
 $(function() {
   $('#formNewNote').submit(function() {
-  //$('#submit').click(function() {
     $('#listNote div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
     $.post('../note/create', $('.newNote_').serialize(), function(data)
     {
+      $('#formNewNote :reset').click();
       if ($('#listNote').length > 0) {
         $.listNote_reload();
       }
@@ -30,10 +30,10 @@ $(function() {
   });
   };
   listNote_reload();
-  /*if ($('#formNewActivity').length > 0) {
-    $.listActivity_reload = function() {
-      listActivity_reload();
+  if ($('#formNewNote').length > 0) {
+    $.listNote_reload = function() {
+      listNote_reload();
     }
-  }*/
+  }
 });
 <?php } ?>

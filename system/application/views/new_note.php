@@ -1,5 +1,4 @@
 <div id="newNote">
-<script src="../js/note/new" type="text/javascript"></script>
 <form id="formNewNote">
 
 <label>Judul</label>
@@ -8,6 +7,8 @@
 <label>Teks</label>
 <textarea id="newNote_teks" name="teks" class="formInput newNote_"></textarea>
 
-<input type="submit" value="Buat"/>
+<input type="submit" value="Buat"/>&nbsp;&nbsp;<input type="reset" style="display: none"/>
 </form>
 </div>
+<script src="../js/note/new" type="text/javascript"></script>
+
