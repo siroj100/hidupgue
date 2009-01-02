@@ -14,11 +14,37 @@ class Contact extends Controller {
     echo "{result: 'ok'}";
   }
 
+  function create_phone()
+  {
+    $data['kontak_id'] = $_POST['contactId'];
+    $data['phone_number'] = $_POST['phoneNumber'];
+    $this->Model_kontak_telepon->insert($data);
+    echo "{result: 'ok'}";
+  }
+
+  function edit_phone()
+  {
+    $kontak_id = $_POST['contactId'];
+    $id = $_POST['id'];
+    $data['phone_number'] = $_POST['phoneNumber'];
+    $this->Model_kontak_telepon->update($kontak_id,$id,$data);
+    echo "{result: 'ok'}";
+  }
+
   function create_email()
   {
     $data['kontak_id'] = $_POST['contactId'];
     $data['email_address'] = $_POST['emailAddress'];
     $this->Model_kontak_email->insert($data);
+    echo "{result: 'ok'}";
+  }
+
+  function edit_email()
+  {
+    $kontak_id = $_POST['contactId'];
+    $id = $_POST['id'];
+    $data['email_address'] = $_POST['emailAddress'];
+    $this->Model_kontak_email->update($kontak_id,$id,$data);
     echo "{result: 'ok'}";
   }
 

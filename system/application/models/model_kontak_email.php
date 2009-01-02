@@ -10,6 +10,13 @@ class Model_kontak_email extends Model {
     $this->db->insert('kontak_email', $data);
   }
 
+  function update($kontak_id,$id,$data)
+  {
+    $this->db->where('kontak_id',$kontak_id);
+    $this->db->where('id',$id);
+    $this->db->update('kontak_email', $data);
+  }
+
   function list_all($kontak_id=null)
   {
     if (isset($kontak_id)) {
