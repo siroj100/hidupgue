@@ -13,24 +13,18 @@ body {
 </style>
 <script src="../javascripts/jquery.js" type="text/javascript"></script>
 <script src="../javascripts/jquery.boxy.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../stylesheets/hidupgue.css" type="text/css" />
 <link rel="stylesheet" href="../stylesheets/boxy.css" type="text/css" />
 </head>
 <body>
 
 <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
 
-<?php echo $new_contact; ?>
-<?php echo $list_contact; ?>
-<?php echo $new_activity; ?>
-<?php echo $list_activity; ?>
-<?php echo $new_note; ?>
-<?php echo $list_note; ?>
+<?php echo $contact; ?>
+<?php echo $activity; ?>
+<?php echo $note; ?>
 
 <p><br />Page rendered in {elapsed_time} seconds</p>
-
-<div id="hiddenForms" style="display: none;">
-<?php echo $new_contact_email; ?>
-</div>
 
 </body>
 </html>

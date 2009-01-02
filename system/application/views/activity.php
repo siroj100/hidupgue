@@ -7,6 +7,14 @@
 <div>
 </div>
 </div>
+
+<div id="listActivity" >
+<div>
+<span style="background: #f00; color: #fff;">Loading...</span>
+</div>
+</div>
+
+<script src="../js/activity" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
   $.getJSON('../activity/list_activity_type', function(data) {
@@ -20,4 +28,4 @@ $(function() {
   });
 });
 </script>
-<script src="../js/activity/new" type="text/javascript"></script>
+

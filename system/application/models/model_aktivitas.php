@@ -12,6 +12,7 @@ class Model_aktivitas extends Model {
 
   function list_all()
   {
+    $this->db->orderby('start_executed_date', 'asc');
     return $this->db->get('aktivitas');
   }
 }

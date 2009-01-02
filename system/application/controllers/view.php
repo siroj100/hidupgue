@@ -16,13 +16,9 @@ class View extends Controller {
   {
     session_start();
     if (isset($_SESSION['username'])) {
-      $data['new_activity'] = $this->load->view('new_activity','',true);
-      $data['list_activity'] = $this->load->view('list_activity','',true);
-      $data['new_note'] = $this->load->view('new_note','',true);
-      $data['list_note'] = $this->load->view('list_note','',true);
-      $data['new_contact'] = $this->load->view('new_contact','',true);
-      $data['list_contact'] = $this->load->view('list_contact','',true);
-      $data['new_contact_email'] = $this->load->view('new_contact_email','',true);
+      $data['activity'] = $this->load->view('activity','',true);
+      $data['note'] = $this->load->view('note','',true);
+      $data['contact'] = $this->load->view('contact','',true);
       $this->load->view('frontend',$data);
     } else {
       $this->login();
@@ -37,17 +33,6 @@ class View extends Controller {
       }
     }
   }
-
-  function contact($section=null, $contact_id=null, $param=null)
-  {
-    if (isset($section)) {
-      if ($section == 'details' && isset($contact_id)) {
-        $data['contact_id'] = $contact_id;
-        $this->load->view('list_contact_details',$data);
-      }
-    }
-  }
-
 
 }
 ?>

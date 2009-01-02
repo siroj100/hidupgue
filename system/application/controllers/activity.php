@@ -10,7 +10,11 @@ class Activity extends Controller {
   {
     $data['name'] = $_POST['name'];
     $data['description'] = $_POST['description'];
-    $data['start_executed_date'] = $_POST['startExecutedDate'].' '.$_POST['startExecutedDateHour'].':'.$_POST['startExecutedDateMinute'];
+    if (isset($_POST['startExecutedDateHour']) && isset($_POST['startExecutedDateMinute'])) {
+      $data['start_executed_date'] = $_POST['startExecutedDate'].' '.$_POST['startExecutedDateHour'].':'.$_POST['startExecutedDateMinute'];
+    } else {
+      $data['start_executed_date'] = $_POST['startExecutedDate'];
+    }
     $this->Model_aktivitas->insert($data);
     echo "{result: 'ok'}";
   }

@@ -11,7 +11,7 @@ body {
  color: #4F5155;
 }
 </style>
-<script src="../scripts/jquery.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.js" type="text/javascript"></script>
 <script src="../js/user" type="text/javascript"></script>
 </head>
 <body>

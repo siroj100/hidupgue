@@ -10,5 +10,11 @@
 <input type="submit" value="Buat"/>&nbsp;&nbsp;<input type="reset" style="display: none"/>
 </form>
 </div>
-<script src="../js/note/new" type="text/javascript"></script>
 
+<div id="listNote" >
+<div>
+<span style="background: #f00; color: #fff;">Loading...</span>
+</div>
+</div>
+
+<script src="../js/note" type="text/javascript"></script>

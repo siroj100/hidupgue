@@ -11,22 +11,19 @@ class Js extends Controller {
     $this->load->view('user.js');
   }
 
-  function activity($section)
+  function activity()
   {
-    $data['section'] = $section;
-    $this->load->view('activity.js',$data);
+    $this->load->view('activity.js');
   }
 
-  function note($section)
+  function note()
   {
-    $data['section'] = $section;
-    $this->load->view('note.js',$data);
+    $this->load->view('note.js');
   }
 
-  function contact($section)
+  function contact()
   {
-    $data['section'] = $section;
-    $this->load->view('contact.js',$data);
+    $this->load->view('contact.js');
   }
 
 }
