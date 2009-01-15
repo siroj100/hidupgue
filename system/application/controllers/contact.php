@@ -18,6 +18,7 @@ class Contact extends Controller {
     $this->Model_kontak->insert($data);
     $kontak_id = $this->Model_kontak->db->insert_id();
     $_POST['contactId'] = $kontak_id;
+    $_POST['primaryFlag'] = TRUE;
     if (isset($_POST['phoneNumber'])) {
       $this->create_phone(TRUE);
     }
@@ -31,6 +32,7 @@ class Contact extends Controller {
   {
     $data['kontak_id'] = $_POST['contactId'];
     $data['phone_number'] = $_POST['phoneNumber'];
+    $data['primary_flag'] = $_POST['primaryFlag'];
     $this->Model_kontak_telepon->insert($data);
     if ($as_child === FALSE) echo "{result: 'ok'}";
   }
@@ -40,6 +42,7 @@ class Contact extends Controller {
     $kontak_id = $_POST['contactId'];
     $id = $_POST['id'];
     $data['phone_number'] = $_POST['phoneNumber'];
+    $data['primary_flag'] = $_POST['primaryFlag'];
     $this->Model_kontak_telepon->update($kontak_id,$id,$data);
     echo "{result: 'ok'}";
   }
@@ -48,6 +51,7 @@ class Contact extends Controller {
   {
     $data['kontak_id'] = $_POST['contactId'];
     $data['email_address'] = $_POST['emailAddress'];
+    $data['primary_flag'] = $_POST['primaryFlag'];
     $this->Model_kontak_email->insert($data);
     if ($as_child === FALSE) echo "{result: 'ok'}";
   }
@@ -57,13 +61,18 @@ class Contact extends Controller {
     $kontak_id = $_POST['contactId'];
     $id = $_POST['id'];
     $data['email_address'] = $_POST['emailAddress'];
+    $data['primary_flag'] = $_POST['primaryFlag'];
     $this->Model_kontak_email->update($kontak_id,$id,$data);
     echo "{result: 'ok'}";
   }
 
   function list_data()
   {
-    $q_result = $this->Model_kontak->list_all(); 
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    $q_result = $this->Model_kontak->list_all_w_primary_details($_SESSION['pengguna_id']); 
     $data['objects'] = $q_result->result_array();
     $this->load->view('jsonizer', $data);
   }

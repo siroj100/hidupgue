@@ -138,6 +138,8 @@ $(function() {
         $.each(data, function(key, entry) {
           html += '<li>';
           html += entry['name']+'&nbsp;&nbsp;';
+          html += 'p: '+entry['phone_number']+'&nbsp;';
+          html += 'e: '+entry['email_address']+'&nbsp;&nbsp;';
           html += '<a href="#" id="contactName_'+entry['id']+'" class="contactDetails">show detail</a>';
           html += '<div id="contact_'+entry['id']+'_phone_details"></div>';
           html += '<div id="contact_'+entry['id']+'_email_details"></div>';

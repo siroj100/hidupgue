@@ -20,17 +20,24 @@
 <div id="newContact">
 <form id="formNewContact">
 
-<label>Nama</label>
-<input type="input" id="newContact_name" name="name" class="formInput newContact_"/>
-<input type="submit" value="Buat"/>
-<input type="reset" style="display: none"/>
-<br/>
-<label>Phone Number</label>
-<input type="input" id="newContact_phoneNumber" name="phoneNumber" class="formInput newContact_"/>
-<br/>
-<label>E-mail Address</label>
-<input type="input" id="newContact_emailAddress" name="emailAddress" class="formInput newContact_"/>
-
+<table>
+<tr>
+<td align="right"><label>Nama</label></td>
+<td align="left"><input type="input" id="newContact_name" name="name" class="formInput newContact_" size="40"/></td>
+</tr>
+<tr>
+<td align="right"><label>Phone Number</label></td>
+<td align="left"><input type="input" id="newContact_phoneNumber" name="phoneNumber" class="formInput newContact_"/></td>
+</tr>
+<tr>
+<td align="right"><label>E-mail Address</label></td>
+<td align="left"><input type="input" id="newContact_emailAddress" name="emailAddress" class="formInput newContact_"/></td>
+</tr>
+<tr>
+<td align="right">&nbsp;</td>
+<td align="left"><input type="submit" value="Buat"/><input type="reset" style="display: none"/></td>
+</tr>
+</table>
 </form>
 </div>
 
