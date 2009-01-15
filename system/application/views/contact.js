@@ -1,9 +1,18 @@
 $(function() {
+  $('#button_newContact').click(function() {
+    $('#formNewContact :reset').click();
+    if (window.boxyContact == null) {
+      window.boxyContact = new Boxy($('#newContact'), {title: "New Contact",modal: true});
+    } else {
+      window.boxyContact.show();
+    }
+  });
   $('#formNewContact').submit(function() {
-    $('#listContact div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
     $.post('../contact/create', $('.newContact_').serialize(), function(data){
       $('#formNewContact :reset').click();
+      $('#listContact div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
       listContact_reload();
+      window.boxyContact.hide();
     }, 'json');
     return false;
   });

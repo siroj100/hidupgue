@@ -9,17 +9,30 @@ class Contact extends Controller {
 
   function create()
   {
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
     $data['name'] = $_POST['name'];
+    $data['pengguna_id'] = $_SESSION['pengguna_id'];
     $this->Model_kontak->insert($data);
+    $kontak_id = $this->Model_kontak->db->insert_id();
+    $_POST['contactId'] = $kontak_id;
+    if (isset($_POST['phoneNumber'])) {
+      $this->create_phone(TRUE);
+    }
+    if (isset($_POST['emailAddress'])) {
+      $this->create_email(TRUE);
+    }
     echo "{result: 'ok'}";
   }
 
-  function create_phone()
+  function create_phone($as_child=FALSE)
   {
     $data['kontak_id'] = $_POST['contactId'];
     $data['phone_number'] = $_POST['phoneNumber'];
     $this->Model_kontak_telepon->insert($data);
-    echo "{result: 'ok'}";
+    if ($as_child === FALSE) echo "{result: 'ok'}";
   }
 
   function edit_phone()
@@ -31,12 +44,12 @@ class Contact extends Controller {
     echo "{result: 'ok'}";
   }
 
-  function create_email()
+  function create_email($as_child=FALSE)
   {
     $data['kontak_id'] = $_POST['contactId'];
     $data['email_address'] = $_POST['emailAddress'];
     $this->Model_kontak_email->insert($data);
-    echo "{result: 'ok'}";
+    if ($as_child === FALSE) echo "{result: 'ok'}";
   }
 
   function edit_email()

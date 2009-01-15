@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database');
+$autoload['libraries'] = array('database','my_helper');
 
 
 /*
@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Model_aktivitas','Model_catatan','Model_enum_params','Model_kontak','Model_kontak_alamat','Model_kontak_email','Model_kontak_telepon');
+$autoload['model'] = array('Model_aktivitas','Model_catatan','Model_enum_params','Model_kontak','Model_kontak_alamat','Model_kontak_email','Model_kontak_telepon','Model_pengguna');
 
 
 

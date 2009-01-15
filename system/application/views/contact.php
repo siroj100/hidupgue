@@ -1,10 +1,10 @@
-<div id="newContact">
-<form id="formNewContact">
-
-<label>Nama</label>
-<input type="input" id="newContact_name" name="name" class="formInput newContact_"/>
-
-<input type="submit" value="Buat"/><input type="reset" style="display: none"/> 
+<fieldset>
+<legend>Contact</legend>
+<div id="searchContact">
+<form id="formSearchContact">
+<input type="button" id="button_newContact" value="+"/>
+<input type="input" id="searchContact_value" name="value" class="formInput searchContact_"/>
+<input type="submit" value="Cari"/><input type="reset" style="display: none"/> 
 </form>
 </div>
 
@@ -13,8 +13,26 @@
 <span style="background: #f00; color: #fff;">Loading...</span>
 </div>
 </div>
+</fieldset>
 
 <div class="hiddenForms">
+
+<div id="newContact">
+<form id="formNewContact">
+
+<label>Nama</label>
+<input type="input" id="newContact_name" name="name" class="formInput newContact_"/>
+<input type="submit" value="Buat"/>
+<input type="reset" style="display: none"/>
+<br/>
+<label>Phone Number</label>
+<input type="input" id="newContact_phoneNumber" name="phoneNumber" class="formInput newContact_"/>
+<br/>
+<label>E-mail Address</label>
+<input type="input" id="newContact_emailAddress" name="emailAddress" class="formInput newContact_"/>
+
+</form>
+</div>
 
 <div id="newContactPhone">
 <form id="formNewContactPhone">
