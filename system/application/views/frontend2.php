@@ -2,6 +2,7 @@
 <head>
 <title>Welcome</title>
 <script src="../javascripts/jquery.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.ui.all.js" type="text/javascript"></script>
 <script src="../javascripts/jquery.boxy.js" type="text/javascript"></script>
 <link rel="stylesheet" href="../stylesheets/hidupgue.css" type="text/css" />
 <link rel="stylesheet" href="../stylesheets/boxy.css" type="text/css" />

@@ -131,6 +131,41 @@ $(function() {
     });
   };
 
+  window.listContactDetails_reload = function(contactId) {
+    $.getJSON('../contact/details/'+contactId, function(data) {
+      var html = '';
+      if (data.length > 0) {
+        $.each(data, function(key, entry) {
+          html += '<span>'+entry['name']+'</span>';
+          html += '<ul>E-Mail';
+          if (entry['email'].length > 0) {
+            $.each(entry['email'], function(key_email, entry_email) {
+              html += '<li>'+entry_email['email_address']+'</li>';
+            });
+          }
+          html += '</ul>';
+          html += '<ul>Phone';
+          if (entry['phone_number'].length > 0) {
+            $.each(entry['phone_number'], function(key_phone, entry_phone) {
+              html += '<li>'+entry_phone['phone_number']+'</li>';
+            });
+          }
+          html += '</ul>';
+          /*alert('email: '+entry['email'].length);
+          alert('phone: '+entry['phone_number'].length);*/
+        });
+      }
+      $('#contactDetails').html(html);
+      //$('#contactDetails').css('display','block');
+      if ($('#contactDetails').css('display') == 'none') {
+        $('#contactDetails').toggle('slide', { 
+          direction: 'right' 
+        }, 1000);
+      }
+
+    });
+  }
+
   window.listContact_reload = function() {
     $.getJSON('../contact/list_data', function(data) {
       var html = '<ul id="listContactName">\n';
@@ -138,8 +173,12 @@ $(function() {
         $.each(data, function(key, entry) {
           html += '<li>';
           html += entry['name']+'&nbsp;&nbsp;';
-          html += 'p: '+entry['phone_number']+'&nbsp;';
-          html += 'e: '+entry['email_address']+'&nbsp;&nbsp;';
+          if (entry['phone_number'] != null) {
+            html += 'p: '+entry['phone_number']+'&nbsp;';
+          }
+          if (entry['email_address'] != null) {
+            html += 'e: '+entry['email_address']+'&nbsp;&nbsp;';
+          }
           html += '<a href="#" id="contactName_'+entry['id']+'" class="contactDetails">show detail</a>';
           html += '<div id="contact_'+entry['id']+'_phone_details"></div>';
           html += '<div id="contact_'+entry['id']+'_email_details"></div>';
@@ -151,8 +190,9 @@ $(function() {
       $('a.contactDetails').click(function() {
         var contactId = $(this).attr('id').substring(12);
 
-        listContactPhone_reload(contactId);
-        listContactEmail_reload(contactId);
+        listContactDetails_reload(contactId);
+        /*listContactPhone_reload(contactId);
+        listContactEmail_reload(contactId);*/
 
         return false;
       });

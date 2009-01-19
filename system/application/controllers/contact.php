@@ -19,10 +19,10 @@ class Contact extends Controller {
     $kontak_id = $this->Model_kontak->db->insert_id();
     $_POST['contactId'] = $kontak_id;
     $_POST['primaryFlag'] = TRUE;
-    if (isset($_POST['phoneNumber'])) {
+    if (isset($_POST['phoneNumber']) && strlen(trim($_POST['phoneNumber'])) > 0) {
       $this->create_phone(TRUE);
     }
-    if (isset($_POST['emailAddress'])) {
+    if (isset($_POST['emailAddress']) && strlen(trim($_POST['emailAddress'])) > 0) {
       $this->create_email(TRUE);
     }
     echo "{result: 'ok'}";
@@ -92,6 +92,31 @@ class Contact extends Controller {
       $q_result = $this->Model_kontak_email->list_all($kontak_id); 
       $data['objects'] = $q_result->result_array();
       $this->load->view('jsonizer', $data);
+    }
+  }
+
+  function details($kontak_id=null)
+  {
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    if (isset($kontak_id)) {
+      $pengguna_id = $_SESSION['pengguna_id'];
+      $q_result = $this->Model_kontak->get_kontak($kontak_id, $pengguna_id); 
+      $objects = $q_result->result_array();
+      if (count($objects) > 0) {
+        $data['objects'] = $objects;
+        $q_result = $this->Model_kontak_email->list_all($kontak_id);
+        $data['objects'][0]['email'] = $q_result->result_array();
+        $q_result = $this->Model_kontak_telepon->list_all($kontak_id);
+        $data['objects'][0]['phone_number'] = $q_result->result_array();
+        $this->load->view('jsonizer', $data);
+        return;
+      } else {
+        echo "{result: 'failed'}";
+        return;
+      }
     }
   }
 

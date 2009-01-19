@@ -8,10 +8,13 @@
 </form>
 </div>
 
-<div id="listContact" >
+<div id="listContact" style="float: left;">
 <div>
 <span style="background: #f00; color: #fff;">Loading...</span>
 </div>
+</div>
+
+<div id="contactDetails" style="float: left; display: none;">
 </div>
 </fieldset>
 
