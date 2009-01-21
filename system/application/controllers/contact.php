@@ -19,17 +19,23 @@ class Contact extends Controller {
     $kontak_id = $this->Model_kontak->db->insert_id();
     $_POST['contactId'] = $kontak_id;
     $_POST['primaryFlag'] = TRUE;
-    if (isset($_POST['phoneNumber']) && strlen(trim($_POST['phoneNumber'])) > 0) {
-      $this->create_phone(TRUE);
+    if (!isset($_POST['phoneNumber']) || strlen(trim($_POST['phoneNumber'])) <= 0) {
+      $_POST['phoneNumber'] = NULL;
     }
-    if (isset($_POST['emailAddress']) && strlen(trim($_POST['emailAddress'])) > 0) {
-      $this->create_email(TRUE);
+    $this->create_phone(TRUE);
+    if (!isset($_POST['emailAddress']) || strlen(trim($_POST['emailAddress'])) <= 0) {
+      $_POST['emailAddress'] = NULL;
     }
+    $this->create_email(TRUE);
     echo "{result: 'ok'}";
   }
 
   function create_phone($as_child=FALSE)
   {
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
     $data['kontak_id'] = $_POST['contactId'];
     $data['phone_number'] = $_POST['phoneNumber'];
     $data['primary_flag'] = $_POST['primaryFlag'];
@@ -49,10 +55,40 @@ class Contact extends Controller {
 
   function create_email($as_child=FALSE)
   {
-    $data['kontak_id'] = $_POST['contactId'];
-    $data['email_address'] = $_POST['emailAddress'];
-    $data['primary_flag'] = $_POST['primaryFlag'];
-    $this->Model_kontak_email->insert($data);
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    $kontak_id = $_POST['contactId'];
+    $email_address = $_POST['emailAddress']; 
+    $pengguna_id = $_SESSION['pengguna_id'];
+    if (!isset($email_address) || strlen($email_address) <= 0) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    $email_count = $this->Model_kontak_email->email_count($kontak_id, $pengguna_id);
+    if ($email_count == 0) {
+      $q_result = $this->Model_kontak_email->get_primary_email($kontak_id, $pengguna_id);
+      $primary_email = $q_result->result_array();
+      if (count($primary_email) > 0) {
+        $data['primary_flag'] = TRUE;
+        $data['email_address'] = $email_address;
+        $kontak_email_id = $primary_email[0]['id'];
+        $this->Model_kontak_email->update($kontak_id, $kontak_email_id, $data);
+      } else {
+        if ($as_child === FALSE) echo "{result: 'failed'}";
+        return;
+      }
+    } else {
+      if ($_POST['primaryFlag'] == TRUE) {
+        $data['primary_flag'] = FALSE;
+        $this->Model_kontak_email->update_all($kontak_id, $data);
+      }
+      $data['primary_flag'] = $_POST['primaryFlag'];
+      $data['kontak_id'] = $kontak_id;
+      $data['email_address'] = $email_address;
+      $this->Model_kontak_email->insert($data);
+    }
     if ($as_child === FALSE) echo "{result: 'ok'}";
   }
 
@@ -117,6 +153,19 @@ class Contact extends Controller {
         echo "{result: 'failed'}";
         return;
       }
+    }
+  }
+
+  function find_by_name($kontak_name)
+  {
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    if (isset($kontak_name)) {
+      $q_result = $this->Model_kontak->find_contact_by_name($kontak_name,$_SESSION['pengguna_id']); 
+      $data['objects'] = $q_result->result_array();
+      $this->load->view('jsonizer', $data);
     }
   }
 

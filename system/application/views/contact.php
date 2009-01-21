@@ -4,6 +4,11 @@
 <form id="formSearchContact">
 <input type="button" id="button_newContact" value="+"/>
 <input type="input" id="searchContact_value" name="value" class="formInput searchContact_"/>
+<select id="searchContact_field" name="field">
+  <option value="name">Name</option>
+  <option value="email">E-Mail</option>
+  <option value="phone_number">Phone</option>
+</select>
 <input type="submit" value="Cari"/><input type="reset" style="display: none"/> 
 </form>
 </div>
@@ -64,7 +69,11 @@
 <input type="hidden" id="newContactEmail_contactId" name="contactId" class="formInput newContactEmail_" value="0"/>
 <input type="input" id="newContactEmail_emailAddress" name="emailAddress" class="formInput newContactEmail_"/>
 
-<input type="submit" value="Buat"/><input type="reset" style="display: none"/>
+<input type="submit" value="Buat"/><input type="reset" style="display: none"/><br/>
+
+<label>Primary</label>
+<input type="checkbox" id="newContactEmail_primaryFlag" name="primaryFlag" class="formInput newContactEmail_" checked="checked" value="1"/>
+
 </form>
 </div>
 </div>

@@ -3,7 +3,7 @@ $(document).ready(function() {
     $.post('../user/login', $(this).find('input').serialize(), function(data)
     {
       if (data['result'] == 'ok') {
-        window.location.href = '../view/frontend';
+        window.location.href = '../view/frontend2';
       } else {
         alert('Username atau password salah');
         $('#password').attr('value','');
