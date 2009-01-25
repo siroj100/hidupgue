@@ -117,24 +117,11 @@ $(function() {
     html += '</table>';
     $(elemId).html(html);
 
-    $('.contactEmailEdit').click(function() {
-      $('#formNewContactEmail').attr('action','../contact/edit_email');
-      var ids = $(this).attr('id').split('_');
-      var contactId = ids[1];
-      var contactEmailId = ids[2];
-      $('#newContactEmail_id').attr('value',contactEmailId);
-      $('#newContactEmail_contactId').attr('value', contactId);
-      $('#newContactEmail_emailAddress').attr('value', contactEmailMap[contactEmailId]);
-      if (window.boxyEmail == null) {
-        window.boxyEmail = new Boxy($('#newContactEmail'), {title: "New Email", modal: true});
-      } else {
-        window.boxyEmail.show();
-      }
-    });
   };
 
   window.listContactDetails_reload = function(contactId) {
     $.getJSON('../contact/details/'+contactId, function(data) {
+      var contactEmailMap = new Object();
       var html = '';
       if (data.length > 0) {
         $.each(data, function(key, entry) {
@@ -143,7 +130,11 @@ $(function() {
           html += '<a href="#" id="contactEmailAdd_'+contactId+'" class="contactEmailAdd">add e-mail</a>';
           $.each(entry['email'], function(key_email, entry_email) {
             if (entry_email['email_address'] != null) {
-              html += '<li>'+entry_email['email_address']+'</li>';
+              html += '<li>';
+              html += entry_email['email_address']+'&nbsp;';
+              html += '<a href="#" id="contactEmailEdit_'+contactId+'_'+entry['id']+'" class="contactEmailEdit">edit</a>';
+              html += '</li>';
+              contactEmailMap[entry_email['id']] = entry_email['email_address'];
             } else {
               html += '<li>No E-Mail</li>';
             }
@@ -153,7 +144,9 @@ $(function() {
           html += '<a href="#" id="contactPhoneAdd_'+contactId+'" class="contactPhoneAdd">add phone</a>'; 
           $.each(entry['phone_number'], function(key_phone, entry_phone) {
             if (entry_phone['phone_number'] != null) {
-              html += '<li>'+entry_phone['phone_number']+'</li>';
+              html += '<li>';
+              html += entry_phone['phone_number']+'&nbsp;';
+              html += '</li>';
             } else {
               html += '<li>No Phone</li>';
             }
@@ -175,6 +168,21 @@ $(function() {
         }
       });
     
+      $('.contactEmailEdit').click(function() {
+        $('#formNewContactEmail').attr('action','../contact/edit_email');
+        var ids = $(this).attr('id').split('_');
+        var contactId = ids[1];
+        var contactEmailId = ids[2];
+        $('#newContactEmail_id').attr('value',contactEmailId);
+        $('#newContactEmail_contactId').attr('value', contactId);
+        $('#newContactEmail_emailAddress').attr('value', contactEmailMap[contactEmailId]);
+        if (window.boxyEmail == null) {
+          window.boxyEmail = new Boxy($('#newContactEmail'), {title: "New Email", modal: true});
+        } else {
+          window.boxyEmail.show();
+        }
+    });
+
       $('.contactPhoneAdd').click(function() {
         $('#formNewContactPhone :reset').click();
         $('#formNewContactPhone').attr('action','../contact/create_phone');
@@ -207,6 +215,7 @@ $(function() {
         $.each(data, function(key, entry) {
           html += '<li>';
           html += entry['name']+'&nbsp;&nbsp;';
+          html += '<div style="font-size: 11px; color: #777;">';
           if (entry['phone_number'] != null) {
             html += 'p: '+entry['phone_number']+'&nbsp;';
           }
@@ -216,6 +225,7 @@ $(function() {
           html += '<a href="#" id="contactName_'+entry['id']+'" class="contactDetails">show detail</a>';
           html += '<div id="contact_'+entry['id']+'_phone_details"></div>';
           html += '<div id="contact_'+entry['id']+'_email_details"></div>';
+          html += '</div>';
           html += '</li>\n';
         });
       }

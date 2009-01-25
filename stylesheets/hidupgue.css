@@ -7,6 +7,10 @@ body {
  margin: 40px;
  font-family: Lucida Grande, Verdana, Sans-serif;
  font-size: 14px;
- color: #4F5155;
+ /*color: #4F5155;*/
+}
+
+fieldset {
+  padding: 2px;
 }
 

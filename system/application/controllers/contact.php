@@ -76,8 +76,15 @@ class Contact extends Controller {
         $kontak_email_id = $primary_email[0]['id'];
         $this->Model_kontak_email->update($kontak_id, $kontak_email_id, $data);
       } else {
-        if ($as_child === FALSE) echo "{result: 'failed'}";
-        return;
+        if ($as_child === FALSE) {
+          echo "{result: 'failed'}";
+          return;
+        } else if ($as_child === TRUE) {
+          $data['primary_flag'] = $_POST['primaryFlag'];
+          $data['kontak_id'] = $kontak_id;
+          $data['email_address'] = $email_address;
+          $this->Model_kontak_email->insert($data);
+        }
       }
     } else {
       if ($_POST['primaryFlag'] == TRUE) {

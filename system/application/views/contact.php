@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset style="width: 700px; height: 70%; border: 1px #000 dotted;">
 <legend>Contact</legend>
 <div id="searchContact">
 <form id="formSearchContact">
@@ -13,13 +13,13 @@
 </form>
 </div>
 
-<div id="listContact" style="float: left;">
+<div id="listContact" style="float: left; width: 45%;">
 <div>
 <span style="background: #f00; color: #fff;">Loading...</span>
 </div>
 </div>
 
-<div id="contactDetails" style="float: left; display: none;">
+<div id="contactDetails" style="float: left; width: 55%;">
 </div>
 </fieldset>
 
@@ -30,11 +30,11 @@
 
 <table>
 <tr>
-<td align="right"><label>Nama</label></td>
+<td><label>Nama</label></td>
 <td align="left"><input type="input" id="newContact_name" name="name" class="formInput newContact_" size="40"/></td>
 </tr>
 <tr>
-<td align="right"><label>Phone Number</label></td>
+<td><label>Phone Number</label></td>
 <td align="left"><input type="input" id="newContact_phoneNumber" name="phoneNumber" class="formInput newContact_"/></td>
 </tr>
 <tr>
