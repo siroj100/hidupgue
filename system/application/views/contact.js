@@ -59,7 +59,7 @@ $(function() {
   });
 
   window.listContact_showLoading = function() {
-    $('#listContact div').html('<span style="background: #f00; color: #fff;">Loading...</span>');
+    $('#listContact').html('<span style="background: #f00; color: #fff;">Loading...</span>');
   }
 
   window.listContactPhone_reload = function(contactId) {
@@ -98,43 +98,32 @@ $(function() {
     });
   };
 
-  window.listContactEmail_reload = function(contactId) {
-    var elemId = '#contact_'+contactId+'_email_details';
-    var html = '<table>';
-    var contactEmailMap = new Object();
-    html += '<tr><th>E-Mail</th>';
-    html += '<td colspan="2"><a href="#" id="contactEmailAdd_'+contactId+'" class="contactEmailAdd">add e-mail</a></td></tr>';
-    $.getJSONsync('../contact/list_email_details/'+contactId, function(data) {
-      if (data.length > 0) {
-        $.each(data, function(key, entry) {
-          html += '<tr><td>&nbsp;</td>';
-          html += '<td>'+entry['email_address']+'</td>';
-          html += '<td align="right"><a href="#" id="contactEmailEdit_'+contactId+'_'+entry['id']+'" class="contactEmailEdit">edit</a></td></tr>';
-          contactEmailMap[entry['id']] = entry['email_address'];
-        });
-      }
-    });
-    html += '</table>';
-    $(elemId).html(html);
-
-  };
-
   window.listContactDetails_reload = function(contactId) {
     $.getJSON('../contact/details/'+contactId, function(data) {
       var contactEmailMap = new Object();
       var html = '';
       if (data.length > 0) {
         $.each(data, function(key, entry) {
+          $('#contactDetails').html('');
+          $('#contactDetailsTemplate').clone().appendTo('#contactDetails');
+          $('#contactName').attr('value',entry['name']);
+
           html += '<span>'+entry['name']+'</span>';
           html += '<ul>E-Mail&nbsp;';
           html += '<a href="#" id="contactEmailAdd_'+contactId+'" class="contactEmailAdd">add e-mail</a>';
+          var index = 0;
           $.each(entry['email'], function(key_email, entry_email) {
             if (entry_email['email_address'] != null) {
+              $('#contactEmail').clone().attr('id','contactEmail'+index).appendTo('#contactEmail_holder');
+              $('#contactEmail'+index).append('br');
+              $('#contactEmail'+index).attr('value',entry_email['email_address']); 
+              index += 1;
+              contactEmailMap[entry_email['id']] = entry_email['email_address'];
+
               html += '<li>';
               html += entry_email['email_address']+'&nbsp;';
-              html += '<a href="#" id="contactEmailEdit_'+contactId+'_'+entry['id']+'" class="contactEmailEdit">edit</a>';
+              html += '<a href="#" id="contactEmailEdit_'+contactId+'_'+entry_email['id']+'" class="contactEmailEdit">edit</a>';
               html += '</li>';
-              contactEmailMap[entry_email['id']] = entry_email['email_address'];
             } else {
               html += '<li>No E-Mail</li>';
             }
@@ -154,9 +143,9 @@ $(function() {
           html += '</ul>';
         });
       }
-      $('#contactDetails').html(html);
+      //$('#contactDetails').html(html);
 
-      $('.contactEmailAdd').click(function() {
+      /*$('.contactEmailAdd').click(function() {
         $('#formNewContactEmail :reset').click();
         $('#formNewContactEmail').attr('action','../contact/create_email');
         var contactId = $(this).attr('id').substring(16);
@@ -181,7 +170,7 @@ $(function() {
         } else {
           window.boxyEmail.show();
         }
-    });
+      });
 
       $('.contactPhoneAdd').click(function() {
         $('#formNewContactPhone :reset').click();
@@ -193,14 +182,12 @@ $(function() {
         } else {
           window.boxyPhone.show();
         }
-      });
+      });*/
 
-      //$('#contactDetails').css('display','block');
-      if ($('#contactDetails').css('display') == 'none') {
-        $('#contactDetails').toggle('slide', { 
-          direction: 'right' 
-        }, 1000);
-      }
+      /*$('#contactDetails').css('display','block');
+      $('#contactDetails').toggle('blind', { 
+        direction: 'vertical' 
+      }, 300);*/
 
     });
   }
@@ -213,16 +200,16 @@ $(function() {
       var html = '<ul id="listContactName">\n';
       if (data.length > 0) {
         $.each(data, function(key, entry) {
-          html += '<li>';
+          html += '<li class="kontak">';
           html += entry['name']+'&nbsp;&nbsp;';
+          html += '<a style="font-size: 11px; color: #777;" href="#" id="contactName_'+entry['id']+'" class="contactDetails">show detail</a>';
           html += '<div style="font-size: 11px; color: #777;">';
           if (entry['phone_number'] != null) {
-            html += 'p: '+entry['phone_number']+'&nbsp;';
+            html += 'p: '+entry['phone_number']+'<br/>';
           }
           if (entry['email_address'] != null) {
             html += 'e: '+entry['email_address']+'&nbsp;&nbsp;';
           }
-          html += '<a href="#" id="contactName_'+entry['id']+'" class="contactDetails">show detail</a>';
           html += '<div id="contact_'+entry['id']+'_phone_details"></div>';
           html += '<div id="contact_'+entry['id']+'_email_details"></div>';
           html += '</div>';
@@ -230,12 +217,27 @@ $(function() {
         });
       }
       html += '</ul>\n';
-      $('#listContact div').html(html);
-      $('#contactDetails').css('display','none');
+      $('#listContact').html(html);
+      //$('#contactDetails').css('display','none');
       $('a.contactDetails').click(function() {
         var contactId = $(this).attr('id').substring(12);
         listContactDetails_reload(contactId);
+        $('.kontak').removeClass('contactList_active');
+        $(this).parent().addClass('contactList_active');
         return false;
+      });
+
+      $('.kontak').hover(function() {
+        $(this).addClass('contactList_hover');
+        $(this).css('cursor','pointer');
+      }, function() {
+        $(this).removeClass('contactList_hover');
+      });
+      $('.kontak').click(function() {
+        $('.kontak').removeClass('contactList_active');
+        $(this).addClass('contactList_active');
+        var contactId = $(this).children('a').attr('id').substring(12);
+        listContactDetails_reload(contactId);
       });
     });
   };

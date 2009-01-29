@@ -14,3 +14,34 @@ fieldset {
   padding: 2px;
 }
 
+ul {
+  margin: 0;
+  margin-left: 1.5em;
+}
+
+li {
+}
+
+th {
+  border: 0px;
+}
+
+td {
+  padding: 2px;
+  border: 0px;
+}
+
+.contactList_hover {
+  background-color: #bbb;
+  color: #000;
+}
+
+.contactList_active {
+  background-color: #000;
+  color: #fff;
+}
+
+.formDisplay {
+  border: 0px;
+  border-bottom: 1px dashed #777;
+}

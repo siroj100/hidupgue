@@ -46,6 +46,10 @@ class Contact extends Controller {
   function edit_phone()
   {
     $kontak_id = $_POST['contactId'];
+    if ($_POST['primaryFlag'] == TRUE) {
+      $data['primary_flag'] = FALSE;
+      $this->Model_kontak_telepon->update_all($kontak_id, $data);
+    }
     $id = $_POST['id'];
     $data['phone_number'] = $_POST['phoneNumber'];
     $data['primary_flag'] = $_POST['primaryFlag'];
@@ -102,6 +106,10 @@ class Contact extends Controller {
   function edit_email()
   {
     $kontak_id = $_POST['contactId'];
+    if ($_POST['primaryFlag'] == TRUE) {
+      $data['primary_flag'] = FALSE;
+      $this->Model_kontak_email->update_all($kontak_id, $data);
+    }
     $id = $_POST['id'];
     $data['email_address'] = $_POST['emailAddress'];
     $data['primary_flag'] = $_POST['primaryFlag'];

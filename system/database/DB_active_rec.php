@@ -1130,6 +1130,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		$sql = $this->_insert($this->_protect_identifiers($table, TRUE, NULL, FALSE), array_keys($this->ar_set), array_values($this->ar_set));
+
+		log_message('debug','SQL: '.$sql);
 		
 		$this->_reset_write();
 		return $this->query($sql);		
@@ -1192,6 +1194,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 		
 		$sql = $this->_update($this->_protect_identifiers($table, TRUE, NULL, FALSE), $this->ar_set, $this->ar_where, $this->ar_orderby, $this->ar_limit);
+
+		log_message('debug','SQL: '.$sql);
 		
 		$this->_reset_write();
 		return $this->query($sql);
@@ -1229,6 +1233,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		$sql = $this->_delete($table);
+
+		log_message('debug','SQL: '.$sql);
 
 		$this->_reset_write();
 		

@@ -12,22 +12,30 @@
 <input type="submit" value="Cari"/><input type="reset" style="display: none"/> 
 </form>
 </div>
+<br/>
 
-<div id="listContact" style="float: left; width: 45%;">
+<table width="100%">
+<tr>
+<td width="50%" valign="top">
+<div id="listContact" style="float: left;">
 <div>
 <span style="background: #f00; color: #fff;">Loading...</span>
 </div>
 </div>
+</td>
 
-<div id="contactDetails" style="float: left; width: 55%;">
+<td valign="top">
+<div id="contactDetails" style="width: 100%;">
 </div>
+</td>
+</tr>
+</table>
 </fieldset>
 
 <div class="hiddenForms">
 
 <div id="newContact">
 <form id="formNewContact">
-
 <table>
 <tr>
 <td><label>Nama</label></td>
@@ -76,6 +84,19 @@
 
 </form>
 </div>
+
+<div id="contactDetailsTemplate">
+<table width="100%">
+<tr>
+<td valign="top" align="right" width="30%"><label>Nama</label>&nbsp;</td>
+<td><input type="text" id="contactName" class="formDisplay" readonly="readonly"/></td>
+</tr>
+<td valign="top" align="right"><label>E-mail</label>&nbsp;</td>
+<td id="contactEmail_holder"></td>
+</table>
+</div>
+<input type="text" id="contactEmail" class="formDisplay" readonly="readonly"/>
+
 </div>
 
 <script src="../js/contact" type="text/javascript"></script>
