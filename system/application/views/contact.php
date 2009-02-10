@@ -16,7 +16,7 @@
 
 <table width="100%">
 <tr>
-<td width="50%" valign="top">
+<td width="250px" valign="top">
 <div id="listContact" style="float: left;">
 <div>
 <span style="background: #f00; color: #fff;">Loading...</span>
@@ -86,16 +86,24 @@
 </div>
 
 <div id="contactDetailsTemplate">
+<form id="formContactDetails">
 <table width="100%">
 <tr>
-<td valign="top" align="right" width="30%"><label>Nama</label>&nbsp;</td>
-<td><input type="text" id="contactName" class="formDisplay" readonly="readonly"/></td>
+<td valign="top" align="right" width="100px"><label>Nama</label>&nbsp;</td>
+<td width="200px"><input type="text" id="contactName" class="formDisplay" readonly="readonly"/></td>
+<td>&nbsp;</td>
 </tr>
-<td valign="top" align="right"><label>E-mail</label>&nbsp;</td>
-<td id="contactEmail_holder"></td>
+<tr id="contactEmail_listStart">
+<td valign="top" align="right" id="contactEmail_list"><label>E-mail</label>&nbsp;</td>
+</tr>
 </table>
+</form>
 </div>
-<input type="text" id="contactEmail" class="formDisplay" readonly="readonly"/>
+<input type="hidden" id="contactId" name="contactId" class="formDisplay contactDetails_" value="0"/>
+<input type="hidden" id="id" name="id" class="formDisplay contactDetails_" value="0"/>
+<input type="text" id="emailAddress" name="emailAddress" class="formDisplay contactDetails_"/>
+<input type="submit" id="contactEmail_submit" value="Simpan" />
+<input type="button" id="contactEmail_cancel" value="Batal" />
 
 </div>
 

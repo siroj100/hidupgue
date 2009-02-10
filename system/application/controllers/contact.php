@@ -106,13 +106,15 @@ class Contact extends Controller {
   function edit_email()
   {
     $kontak_id = $_POST['contactId'];
-    if ($_POST['primaryFlag'] == TRUE) {
-      $data['primary_flag'] = FALSE;
-      $this->Model_kontak_email->update_all($kontak_id, $data);
+    if (isset($_POST['primaryFlag'])) {
+      if ($_POST['primaryFlag'] == TRUE) {
+        $data['primary_flag'] = FALSE;
+        $this->Model_kontak_email->update_all($kontak_id, $data);
+      }
+      $data['primary_flag'] = $_POST['primaryFlag'];
     }
     $id = $_POST['id'];
     $data['email_address'] = $_POST['emailAddress'];
-    $data['primary_flag'] = $_POST['primaryFlag'];
     $this->Model_kontak_email->update($kontak_id,$id,$data);
     echo "{result: 'ok'}";
   }
