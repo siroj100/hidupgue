@@ -31,6 +31,12 @@ class Model_kontak extends Model {
     $this->db->insert('kontak', $data);
   }
 
+  function update($id,$data)
+  {
+    $this->db->where('id',$id);
+    $this->db->update('kontak', $data);
+  }
+
   function list_all()
   {
     return $this->db->get('kontak');

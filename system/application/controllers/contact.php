@@ -30,6 +30,18 @@ class Contact extends Controller {
     echo "{result: 'ok'}";
   }
 
+  function edit()
+  {
+    if ($this->my_helper->_validate_session() !== TRUE) {
+      echo "{result: 'failed'}";
+      return;
+    }
+    $id = $_POST['id'];
+    $data['name'] = $_POST['name'];
+    $this->Model_kontak->update($id,$data);
+    echo "{result: 'ok'}";
+  }
+
   function create_phone($as_child=FALSE)
   {
     if ($this->my_helper->_validate_session() !== TRUE) {

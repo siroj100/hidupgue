@@ -90,8 +90,8 @@
 <table width="100%">
 <tr>
 <td valign="top" align="right" width="100px"><label>Nama</label>&nbsp;</td>
-<td width="200px"><input type="text" id="contactName" class="formDisplay" readonly="readonly"/></td>
-<td>&nbsp;</td>
+<td width="200px" class="contactInfo_td"><span id="contactNameSpan"></span></td>
+<td class="contactInfo_td"><a href="#" id="contactInfoEdit" style="visibility: hidden;">edit</a></td>
 </tr>
 <tr id="contactEmail_listStart">
 <td valign="top" align="right" id="contactEmail_list"><label>E-mail</label>&nbsp;</td>
@@ -101,9 +101,10 @@
 </div>
 <input type="hidden" id="contactId" name="contactId" class="formDisplay contactDetails_" value="0"/>
 <input type="hidden" id="id" name="id" class="formDisplay contactDetails_" value="0"/>
+<input type="text" id="name" name="name" class="formDisplay contactDetails_"/>
 <input type="text" id="emailAddress" name="emailAddress" class="formDisplay contactDetails_"/>
-<input type="submit" id="contactEmail_submit" value="Simpan" />
-<input type="button" id="contactEmail_cancel" value="Batal" />
+<input type="submit" id="contact_submit" value="Simpan" />
+<input type="button" id="contact_cancel" value="Batal" />
 
 </div>
 

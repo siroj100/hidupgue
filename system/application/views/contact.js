@@ -98,7 +98,9 @@ $(function() {
     });
   };
 
-  $('#contactEmail_cancel').click(function() {
+  $('#contact_cancel').click(function() {
+    $('#contactNameSpan').css('display','block');
+    $('#contactInfoEdit').css('display','block');
     $('.contactEmailSpan').css('display','block');
     $('.contactEmailEdit').css('display','block');
     window.moveFormElements();
@@ -107,9 +109,10 @@ $(function() {
   window.moveFormElements = function() {
     $('#contactId').appendTo('.hiddenForms');
     $('#id').appendTo('.hiddenForms');
+    $('#name').appendTo('.hiddenForms');
     $('#emailAddress').appendTo('.hiddenForms');
-    $('#contactEmail_submit').appendTo('.hiddenForms');
-    $('#contactEmail_cancel').appendTo('.hiddenForms');
+    $('#contact_submit').appendTo('.hiddenForms');
+    $('#contact_cancel').appendTo('.hiddenForms');
   
   };
 
@@ -125,7 +128,7 @@ $(function() {
           $('#contactId').prependTo('#formContactDetails');
           $('#contactId').attr('value',entry['id']);
           $('#id').prependTo('#formContactDetails');
-          $('#contactName').attr('value',entry['name']);
+          $('#contactNameSpan').html(entry['name']);
           $('#contactEmail_list').attr('rowspan',entry['email'].length+1);
 
           html += '<span>'+entry['name']+'</span>';
@@ -167,6 +170,25 @@ $(function() {
             return false;
           });
 
+          $('.contactInfo_td').hover(function() {
+            $('#contactInfoEdit').css('visibility','visible');
+          }, function() {
+            $('#contactInfoEdit').css('visibility','hidden');
+          });
+
+          $('#contactInfoEdit').click(function() {
+            $('#formContactDetails').attr('action','../contact/edit');
+            $('#id').attr('value',$('#contactId').attr('value'));
+
+            $('#contactNameSpan').css('display','none');
+            $('#name').attr('value',$('#contactNameSpan').html()); 
+            $('#name').insertAfter('#contactNameSpan');
+            $('#name').focus();
+            $('#contact_submit').insertAfter('#'+$(this).attr('id'));
+            $('#contact_cancel').insertAfter('#contact_submit');
+            $(this).css('display','none');
+          });
+
           $('.contactEmail_td').hover(function() {
             var contactEmailId = $(this).attr('title');
             $('#contactEmailEdit_'+contactEmailId).css('visibility','visible');
@@ -185,8 +207,8 @@ $(function() {
             $('#emailAddress').attr('value',$('#contactEmailSpan_'+contactEmailId).html()); 
             $('#emailAddress').insertAfter('#contactEmailSpan_'+contactEmailId);
             $('#emailAddress').focus();
-            $('#contactEmail_submit').insertAfter('#'+$(this).attr('id'));
-            $('#contactEmail_cancel').insertAfter('#contactEmail_submit');
+            $('#contact_submit').insertAfter('#'+$(this).attr('id'));
+            $('#contact_cancel').insertAfter('#contact_submit');
             $(this).css('display','none');
           });
 
